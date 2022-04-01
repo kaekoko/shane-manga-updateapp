@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet,FlatList, VirtualizedView} from 'react-native'
-import MangaRanderItem, { SLIDER_WIDTH, ITEM_WIDTH } from './TemplatePart/MangaRenderItem'
+import { View, Text, StyleSheet, FlatList, VirtualizedView } from 'react-native'
+import MangaGenreRenderItem from './TemplatePart/MangaGenreRenderItem'
 import useMangasByGenre from '../hook/MangasByGenre'
 
 const MangaByGenre = (slug) => {
@@ -17,25 +17,23 @@ const MangaByGenre = (slug) => {
       {isSuccess && (
 
         <View>
-          <VirtualizedView
-              data={data}
-              keyExtractor={keyExtractor}
-              renderItem={MangaRanderItem}
-              onRefresh={refetch}
-              refreshing={isLoading}
-              onEndReached={concatData}
+           <FlatList
+                        data={data}
+                        keyExtractor={item => `genre_${item.id}`}
+                        renderItem={({item}) => (<MangaGenreRenderItem item={item}/>)}
+                    />
 
-      />
-    </View>
+        </View>
       )}
     </View>
   );
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-    },
-    
-  });
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    width: 200
+  },
+
+});
 export default MangaByGenre
