@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-  StyleSheet, Text, View, StatusBar, Container
+  StyleSheet, Text, View, StatusBar, Container, ScrollView
 } from 'react-native'
 import Button from 'components/Button'
 import { colors } from 'theme'
 import LatestMangas from '../components/LatestMangas'
+import GenreTab from '../components/GenresTab'
 
 const styles = StyleSheet.create({
   root: {
@@ -22,11 +23,14 @@ const styles = StyleSheet.create({
 })
 
 const Home = ({ navigation }) => (
+  <ScrollView>
 
-  <View style={styles.root}>
     <StatusBar barStyle="light-content" />
-    <LatestMangas/>
-  </View>
+
+    <LatestMangas />
+    <GenreTab />
+  </ScrollView>
+
 )
 
 Home.propTypes = {
