@@ -1,25 +1,19 @@
-import React from 'react'
-import { View, Text, FlatList, StyleSheet, Button, Alert } from 'react-native'
+import React,{useState} from 'react'
+import { View, Text, FlatList, StyleSheet, Button, TouchableOpacity, Alert } from 'react-native'
 import Carousel, { Pagination, } from 'react-native-snap-carousel'
 import useAllGenre from '../hook/AllGenresHook'
-const Item = ({title}) => (
-    <View style={styles.genrebtn}>
-    <Button
-        title={title}
-        color="black"
-        backgroundcolor="black"
-        onPress={() => Alert.alert('Simple Button pressed')}
+import MangaByGenre from './MangaByGenre'
 
-    />
-    </View>
-);
 
 const GenreTab = () => {
+    const [genre, setGenre] = useState('adult');
     const { data, isLoading, isSuccess } = useAllGenre();
     //console.log(data)
-    const renderGenreItem = ({ item }) => (
-        <Item title={item.name} />
-    );
+const onPressGenerName = (slug) => {
+     //Alert.alert(slug);
+        setGenre(slug)
+    };
+
     return (
         <View>
 
@@ -31,13 +25,25 @@ const GenreTab = () => {
 
             {isSuccess && (
                 <View>
-                     <Text style={styles.title} > ALL GENRES </Text>
+                    <Text style={styles.title} > ALL GENRES </Text>
                     <FlatList
                         data={data}
                         horizontal={true}
-                        renderItem={renderGenreItem}
                         keyExtractor={item => `genre_${item.term_id}`}
+                        renderItem={({item}) => (
+                            <TouchableOpacity
+                                onPress={() => onPressGenerName(item.slug)}
+                                style={styles.genrebtn}
+                            >
+                                <View style={styles.item}>
+                                    <Text style={styles.btntitle}>
+                                      {item.name}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                        )}
                     />
+                     <MangaByGenre slug={genre} />
                 </View>
             )}
         </View>
@@ -54,6 +60,10 @@ const styles = StyleSheet.create({
         backgroundColor:"red",
         margin:3,
         borderRadius:5,   
+
+    },
+    btntitle : {
+        padding:2,
 
     }
 });
