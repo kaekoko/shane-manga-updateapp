@@ -1,10 +1,11 @@
-import { useQuery } from 'react-query';
-import axios from 'axios';
+import { useQuery } from 'react-query'
+import axios from 'axios'
 
 const fetchLatestMangas = async () => {
-    const { data } = await axios.get('https://mydarksitecollection.online/wp-json/kkk/v1/latestmangas');
-    return data;
-};
+  await new Promise((r) => setTimeout(r, 500))
+  const { data } = await axios.get('https://mydarksitecollection.online/wp-json/kkk/v1/latestmangas')
+  return data
+}
 
-const useLatestMangas = () => useQuery('LatestMangas', fetchLatestMangas);
-export default useLatestMangas;
+const useLatestMangas = () => useQuery('LatestMangas', fetchLatestMangas)
+export default useLatestMangas

@@ -35,7 +35,7 @@ const TabNavigator = () => (
                 solid
               />
             )
-            case 'Author':
+          case 'Author':
             return (
               <FontIcon
                 name="user"
@@ -63,7 +63,7 @@ const TabNavigator = () => (
     initialRouteName="Home"
     swipeEnabled={false}
   >
-    <Tab.Screen name="Home" component={ HomeNavigator } />    
+    <Tab.Screen name="Home" component={HomeNavigator} />
     <Tab.Screen name="Mangas" component={MangasNavigator} />
     <Tab.Screen name="Author" component={AuthorNavigator} />
   </Tab.Navigator>
